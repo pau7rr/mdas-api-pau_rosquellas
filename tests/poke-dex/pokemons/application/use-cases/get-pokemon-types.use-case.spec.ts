@@ -2,6 +2,7 @@ import GetPokemonTypesUseCase from "../../../../../src/poke-dex/pokemons/applica
 import PokemonType from "../../../../../src/poke-dex/pokemons/domain/entities/pokemon-type.entity";
 import PokemonAggregate from '../../../../../src/poke-dex/pokemons/domain/pokemon.aggregate';
 import {
+    PokemonFavouritedTimes,
     PokemonHeight,
     PokemonId,
     PokemonName,
@@ -21,6 +22,7 @@ describe('Pokemon use case unit test', () => {
             [pokemonType],
             new PokemonHeight(20),
             new PokemonWeight(20),
+            new PokemonFavouritedTimes(20)
         );
         const mockpokemonRepositoryimp = {
             getPokemonByName: jest.fn().mockReturnValue(pokemon), //
