@@ -23,6 +23,7 @@ amqp.connect('amqp://rabbitmquser:rabbitmqpassword@localhost', options, (error, 
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     channel.consume('test_queue', (msg: any) => {
+      
       console.log(msg.content.toString());
 
       setTimeout(() => {

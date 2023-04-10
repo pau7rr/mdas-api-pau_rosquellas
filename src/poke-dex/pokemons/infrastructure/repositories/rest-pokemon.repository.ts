@@ -5,7 +5,7 @@ import PokemonType from "../../domain/entities/pokemon-type.entity";
 import PokemonNotFound from "../../domain/exceptions/pokemon-not-found.exception";
 import ConnectionError from "../../domain/exceptions/connection-error.exception";
 import fetch from "cross-fetch";
-import { PokemonId, PokemonName, PokemonTypeName, PokemonTypeUrl, PokemonHeight, PokemonWeight } from "../../domain/value-objects";
+import { PokemonId, PokemonName, PokemonTypeName, PokemonTypeUrl, PokemonHeight, PokemonWeight, PokemonFavouritedTimes } from "../../domain/value-objects";
 
 class RestPokemonRepository implements PokemonRepository {
   async getPokemonByName(name: PokemonName): Promise<PokemonAggregate> {
@@ -28,7 +28,8 @@ class RestPokemonRepository implements PokemonRepository {
       new PokemonName(pokemon.name),
       pokemonTypes,
       new PokemonHeight(pokemon.height),
-      new PokemonWeight(pokemon.weight)
+      new PokemonWeight(pokemon.weight),
+      new PokemonFavouritedTimes(pokemon.favouritedTimes)
     );
   }
 
@@ -52,7 +53,8 @@ class RestPokemonRepository implements PokemonRepository {
       new PokemonName(pokemon.name),
       pokemonTypes,
       new PokemonHeight(pokemon.height),
-      new PokemonWeight(pokemon.weight)
+      new PokemonWeight(pokemon.weight),
+      new PokemonFavouritedTimes(0)
     );
   }
   private mapPokemonTypes(pokemonTypes: any[]): PokemonType[] {
