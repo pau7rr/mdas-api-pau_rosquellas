@@ -1,33 +1,25 @@
-import amqp from 'amqplib/callback_api';
+import amqp, { Connection } from 'amqplib/callback_api'
 
-const options = {
-  clientProperties:
-  {
-    connection_name: 'producer-service'
-  }
-};
-
-amqp.connect('amqp://rabbitmquser:rabbitmqpassword@localhost', options, (error, connection) => {
-  if (error) {
-    throw error;
-  }
-
-  connection.createChannel((connErr, channel) => {
-    if (connErr) {
-      throw connErr;
+const createMQProducer = (amqpUrl: string, queueName: string) => {
+  let ch: any
+  amqp.connect(amqpUrl, (errorConnect: Error, connection: Connection) => {
+    if (errorConnect) {
+      console.log('Error connecting to RabbitMQ: ', errorConnect)
+      return
     }
 
-    channel.assertQueue('test_queue', {
-      durable: true
-    });
+    connection.createChannel((errorChannel, channel) => {
+      if (errorChannel) {
+        console.log('Error creating channel: ', errorChannel)
+        return
+      }
 
-    channel.sendToQueue('test_queue', Buffer.from('Hola'), {
-      persistent: true
-    });
-  });
+      ch = channel
+    })
+  })
+  return (msg: string) => {
+    ch.sendToQueue(queueName, Buffer.from(msg))
+  }
+}
 
-  setTimeout(function () {
-    connection.close();
-    process.exit(0);
-  }, 500);
-});
+export default createMQProducer

@@ -4,6 +4,8 @@ import GetPokemonTypesUseCase from "../../application/use-cases/get-pokemon-type
 import RestPokemonRepository from "../repositories/rest-pokemon.repository";
 import PokemonNotFoundException from "../../domain/exceptions/pokemon-not-found.exception";
 import GetPokemonDetailsUseCase from "../../application/use-cases/get-pokemon-details.use-case";
+import InMemoryPokemonFavouritesRepository from "../repositories/in-memory-pokemon-favourites.repository";
+import GetPokemonFavouritedTimesUseCase from "../../application/use-cases/get-pokemonFavouritedTimes.use-case";
 
 export const registerPokemonRoutes = (app: Application): void => {
 	app.get("/type", (req: Request, res: Response) => {
@@ -24,13 +26,17 @@ export const registerPokemonRoutes = (app: Application): void => {
 		const pokemonId = Number(req.params.pokemonId);
 		const getPokemonDetailsUseCase = new GetPokemonDetailsUseCase(new RestPokemonRepository())
 
+		const favouritesRepository = InMemoryPokemonFavouritesRepository.getInstance()
+		const getPokemonFavouritedTimesUseCase = new GetPokemonFavouritedTimesUseCase(favouritesRepository)
+		const favouritedTimes = getPokemonFavouritedTimesUseCase.execute(pokemonId)
+			
 		getPokemonDetailsUseCase.execute(pokemonId).then((pokemon) => {
 			const jsonResponse = {
 				id: pokemon.getId().value,
 				name: pokemon.getName().value,
 				weight: pokemon.getWeight().value,
 				height: pokemon.getHeight().value,
-				favoutiredTimes: pokemon.getFavouritedTimes().value,
+				favoutiredTimes: favouritedTimes,
 			};
 			return res.status(200).send(jsonResponse);
 		}).catch((error: any) => {

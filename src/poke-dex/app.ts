@@ -4,10 +4,17 @@ import path from "path";
 
 import { registerPokemonRoutes } from "./pokemons/infrastructure/apirest/routes";
 import { registerUserRoutes } from "./users/infrastructure/apirest/routes";
+import createMQConsumer from "./pokemons/infrastructure/events/consumer";
+
+const AMQP_URL = 'amqp://rabbitmquser:rabbitmqpassword@localhost'
+const QUEUE_NAME = "test-queue"
 
 // Create Express server
 export const app = express();
 let server: any;
+
+const consumer = createMQConsumer(AMQP_URL, QUEUE_NAME);
+consumer();
 
 // Express configuration
 app.set("port", process.env.PORT ?? 3000);

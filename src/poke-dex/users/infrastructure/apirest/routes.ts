@@ -6,6 +6,13 @@ import AddPokemonToUserFavouritesUseCase from "../../application/use-cases/add-p
 import InMemoryUserRepository from "../repository/in-memory-user.repository";
 import { UserAlreadyExistsException } from "../../domain/exceptions/user-already-exists.exception";
 import { UserPokemonAlreadyInFavouritesException } from "../../domain/exceptions/user-pokemon-already-in-favourites.exception";
+import createMQProducer from "../../../pokemons/infrastructure/events/producer";
+
+
+const AMQP_URL = 'amqp://rabbitmquser:rabbitmqpassword@localhost'
+const QUEUE_NAME = "test-queue"
+const producer = createMQProducer(AMQP_URL, QUEUE_NAME)
+
 
 export const registerUserRoutes = (app: Application): void => {
   app.post("/user", (req: Request, res: Response) => {
@@ -33,7 +40,14 @@ export const registerUserRoutes = (app: Application): void => {
 
       const addPokemonToUserFavouritesUseCase = new AddPokemonToUserFavouritesUseCase(new InMemoryUserRepository());
       addPokemonToUserFavouritesUseCase.execute(userId, pokemonId);
-
+      
+      const msg = {
+        action: 'FAVOURITE',
+        data: { pokemonId: pokemonId },
+      }
+      
+      producer(JSON.stringify(msg))
+      
       return res.status(200).send('Pokemon added to favourites');
     } catch (error: any) {
       if (error instanceof UserPokemonAlreadyInFavouritesException) {
