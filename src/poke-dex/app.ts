@@ -7,7 +7,7 @@ import { registerUserRoutes } from "./users/infrastructure/apirest/routes";
 import createMQConsumer from "./pokemons/infrastructure/events/consumer";
 
 const AMQP_URL = 'amqp://rabbitmquser:rabbitmqpassword@localhost'
-const QUEUE_NAME = "test-queue"
+const QUEUE_NAME = "pokemon_favourites-queue"
 
 // Create Express server
 export const app = express();

@@ -10,7 +10,7 @@ import createMQProducer from "../../../pokemons/infrastructure/events/producer";
 
 
 const AMQP_URL = 'amqp://rabbitmquser:rabbitmqpassword@localhost'
-const QUEUE_NAME = "test-queue"
+const QUEUE_NAME = "pokemon_favourites-queue"
 const producer = createMQProducer(AMQP_URL, QUEUE_NAME)
 
 
