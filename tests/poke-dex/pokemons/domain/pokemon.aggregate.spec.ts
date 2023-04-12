@@ -1,7 +1,6 @@
 import PokemonAggregate from "../../../../src/poke-dex/pokemons/domain/pokemon.aggregate";
 import PokemonTypeEntity from "../../../../src/poke-dex/pokemons/domain/entities/pokemon-type.entity";
 import {
-  PokemonFavouritedTimes,
   PokemonHeight,
   PokemonId,
   PokemonName,
@@ -23,10 +22,9 @@ describe("PokemonAggregate", () => {
     const name = new PokemonName("Bulbasaur");
     const height = new PokemonHeight(20);
     const weight = new PokemonWeight(20);
-    const favouritesTime = new PokemonFavouritedTimes(20);
 
     // When
-    const pokemonAggregate = new PokemonAggregate(id, name, [], height, weight, favouritesTime );
+    const pokemonAggregate = new PokemonAggregate(id, name, [], height, weight);
 
     // Then
     expect(pokemonAggregate).toBeDefined();
@@ -41,9 +39,8 @@ describe("PokemonAggregate", () => {
     const poisonTypeMock = new mockedPokemonTypeEntity(new PokemonTypeName("poison"), new PokemonTypeUrl("https://pokeapi.co/api/v2/type/4/"));
     const height = new PokemonHeight(20);
     const weight = new PokemonWeight(20);
-    const favouritesTime = new PokemonFavouritedTimes(20);
     // When
-    const pokemonAggregate = new PokemonAggregate(id, name, [grassTypeMock, poisonTypeMock], height, weight, favouritesTime);
+    const pokemonAggregate = new PokemonAggregate(id, name, [grassTypeMock, poisonTypeMock], height, weight);
 
     // Then
     expect(pokemonAggregate).toBeDefined();

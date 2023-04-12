@@ -1,6 +1,5 @@
 import PokemonAggregate from "../../../../../src/poke-dex/pokemons/domain/pokemon.aggregate";
 import {
-  PokemonFavouritedTimes,
   PokemonHeight,
   PokemonId,
   PokemonName, PokemonTypeName, PokemonTypeUrl,
@@ -19,9 +18,7 @@ const pokemon = new PokemonAggregate(
   new PokemonName("Pikachu"),
   [pokemonType],
   new PokemonHeight(20),
-  new PokemonWeight(20),
-  new PokemonFavouritedTimes(20),
-);
+  new PokemonWeight(20),);
 
 const mockPokemonRepository = {
   getPokemonByName: jest.fn().mockReturnValue(pokemon), //
