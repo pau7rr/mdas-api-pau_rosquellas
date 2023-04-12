@@ -28,7 +28,7 @@ class RestPokemonRepository implements PokemonRepository {
       new PokemonName(pokemon.name),
       pokemonTypes,
       new PokemonHeight(pokemon.height),
-      new PokemonWeight(pokemon.weight)
+      new PokemonWeight(pokemon.weight),
     );
   }
 
@@ -52,7 +52,7 @@ class RestPokemonRepository implements PokemonRepository {
       new PokemonName(pokemon.name),
       pokemonTypes,
       new PokemonHeight(pokemon.height),
-      new PokemonWeight(pokemon.weight)
+      new PokemonWeight(pokemon.weight),
     );
   }
   private mapPokemonTypes(pokemonTypes: any[]): PokemonType[] {

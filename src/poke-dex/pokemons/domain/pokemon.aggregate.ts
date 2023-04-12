@@ -1,5 +1,5 @@
 import PokemonType from "./entities/pokemon-type.entity"
-import { PokemonId, PokemonName, PokemonHeight, PokemonWeight } from "./value-objects";
+import { PokemonId, PokemonName, PokemonHeight, PokemonWeight, PokemonFavouritedTimes } from "./value-objects";
 
 
 class PokemonAggregate {
@@ -36,6 +36,7 @@ class PokemonAggregate {
   public getWeight(): PokemonWeight {
     return this.weight;
   }
+  
 
 }
 

@@ -18,8 +18,7 @@ const pokemon = new PokemonAggregate(
   new PokemonName("Pikachu"),
   [pokemonType],
   new PokemonHeight(20),
-  new PokemonWeight(20),
-);
+  new PokemonWeight(20),);
 
 const mockPokemonRepository = {
   getPokemonByName: jest.fn().mockReturnValue(pokemon), //

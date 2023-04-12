@@ -27,6 +27,12 @@ $ npm run cli -- types --name={pokemonName}
 
 ### Use API REST.
 
+- Start RabbitMQ container
+
+  ```
+  $ docker-compose up -d
+  ```
+
 - Start server
 
   ```

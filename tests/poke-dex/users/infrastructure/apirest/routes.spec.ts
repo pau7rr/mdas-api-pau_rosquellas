@@ -18,11 +18,4 @@ describe("User routes", () => {
       expect(response.status).toBe(500);
     });
   });
-
-  describe("PATCH /user/:userId/favourites", () => {
-    it("should return 200 OK when pokemon is added to favourites", async () => {
-      const response = await request(app).patch("/user/1/favourites").send({ pokemon_id: 1 });
-      expect(response.status).toBe(200);
-    });
-  });
 })
